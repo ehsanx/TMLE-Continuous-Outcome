@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Box 7: Estimate fluctuation parameter \(\epsilon\) | Implementing TMLE in the Presence of a Continuous Outcome</title>
+  <title>Section 9 Box 7: Estimate fluctuation parameter \(\epsilon\) | Implementing TMLE in the Presence of a Continuous Outcome</title>
   <meta name="description" content="Implementing TMLE" />
   <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Box 7: Estimate fluctuation parameter \(\epsilon\) | Implementing TMLE in the Presence of a Continuous Outcome" />
+  <meta property="og:title" content="Section 9 Box 7: Estimate fluctuation parameter \(\epsilon\) | Implementing TMLE in the Presence of a Continuous Outcome" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Implementing TMLE" />
   <meta name="github-repo" content="ehsanx/TMLE-Continuous-Outcome" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Box 7: Estimate fluctuation parameter \(\epsilon\) | Implementing TMLE in the Presence of a Continuous Outcome" />
+  <meta name="twitter:title" content="Section 9 Box 7: Estimate fluctuation parameter \(\epsilon\) | Implementing TMLE in the Presence of a Continuous Outcome" />
   
   <meta name="twitter:description" content="Implementing TMLE" />
   
@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="box-7-estimate-fluctuation-parameter-epsilon" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">Chapter 9</span> Box 7: Estimate fluctuation parameter <span class="math inline">\(\epsilon\)</span><a href="box-7-estimate-fluctuation-parameter-epsilon.html#box-7-estimate-fluctuation-parameter-epsilon" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Section 9</span> Box 7: Estimate fluctuation parameter <span class="math inline">\(\epsilon\)</span><a href="box-7-estimate-fluctuation-parameter-epsilon.html#box-7-estimate-fluctuation-parameter-epsilon" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="box-7-estimate-fluctuation-parameter-epsilon.html#cb33-1" aria-hidden="true" tabindex="-1"></a>eps_mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y.bounded <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> H.A1L <span class="sc">+</span> H.A0L <span class="sc">+</span>  </span>
 <span id="cb33-2"><a href="box-7-estimate-fluctuation-parameter-epsilon.html#cb33-2" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">offset</span>(<span class="fu">qlogis</span>(Pred.initialQ0)), </span>
 <span id="cb33-3"><a href="box-7-estimate-fluctuation-parameter-epsilon.html#cb33-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>,</span>

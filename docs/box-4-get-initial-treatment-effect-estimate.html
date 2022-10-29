@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Box 4: Get initial treatment effect estimate | Implementing TMLE in the Presence of a Continuous Outcome</title>
+  <title>Section 6 Box 4: Get initial treatment effect estimate | Implementing TMLE in the Presence of a Continuous Outcome</title>
   <meta name="description" content="Implementing TMLE" />
   <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Box 4: Get initial treatment effect estimate | Implementing TMLE in the Presence of a Continuous Outcome" />
+  <meta property="og:title" content="Section 6 Box 4: Get initial treatment effect estimate | Implementing TMLE in the Presence of a Continuous Outcome" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Implementing TMLE" />
   <meta name="github-repo" content="ehsanx/TMLE-Continuous-Outcome" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Box 4: Get initial treatment effect estimate | Implementing TMLE in the Presence of a Continuous Outcome" />
+  <meta name="twitter:title" content="Section 6 Box 4: Get initial treatment effect estimate | Implementing TMLE in the Presence of a Continuous Outcome" />
   
   <meta name="twitter:description" content="Implementing TMLE" />
   
@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="box-4-get-initial-treatment-effect-estimate" class="section level1 hasAnchor" number="6">
-<h1><span class="header-section-number">Chapter 6</span> Box 4: Get initial treatment effect estimate<a href="box-4-get-initial-treatment-effect-estimate.html#box-4-get-initial-treatment-effect-estimate" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Section 6</span> Box 4: Get initial treatment effect estimate<a href="box-4-get-initial-treatment-effect-estimate.html#box-4-get-initial-treatment-effect-estimate" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="box-4-get-initial-treatment-effect-estimate.html#cb15-1" aria-hidden="true" tabindex="-1"></a>ObsData<span class="sc">$</span>Pred.TE <span class="ot">&lt;-</span> ObsData<span class="sc">$</span>Pred.initialQ0.Y1 <span class="sc">-</span> ObsData<span class="sc">$</span>Pred.initialQ0.Y0   </span>
 <span id="cb15-2"><a href="box-4-get-initial-treatment-effect-estimate.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(ObsData<span class="sc">$</span>Pred.TE)</span></code></pre></div>
 <pre><code>## [1] 0.007043316</code></pre>

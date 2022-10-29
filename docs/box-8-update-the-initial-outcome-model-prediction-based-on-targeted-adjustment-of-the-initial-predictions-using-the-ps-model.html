@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Box 8: Update the initial outcome model prediction based on targeted adjustment of the initial predictions using the PS model | Implementing TMLE in the Presence of a Continuous Outcome</title>
+  <title>Section 10 Box 8: Update the initial outcome model prediction based on targeted adjustment of the initial predictions using the PS model | Implementing TMLE in the Presence of a Continuous Outcome</title>
   <meta name="description" content="Implementing TMLE" />
   <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 Box 8: Update the initial outcome model prediction based on targeted adjustment of the initial predictions using the PS model | Implementing TMLE in the Presence of a Continuous Outcome" />
+  <meta property="og:title" content="Section 10 Box 8: Update the initial outcome model prediction based on targeted adjustment of the initial predictions using the PS model | Implementing TMLE in the Presence of a Continuous Outcome" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Implementing TMLE" />
   <meta name="github-repo" content="ehsanx/TMLE-Continuous-Outcome" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Box 8: Update the initial outcome model prediction based on targeted adjustment of the initial predictions using the PS model | Implementing TMLE in the Presence of a Continuous Outcome" />
+  <meta name="twitter:title" content="Section 10 Box 8: Update the initial outcome model prediction based on targeted adjustment of the initial predictions using the PS model | Implementing TMLE in the Presence of a Continuous Outcome" />
   
   <meta name="twitter:description" content="Implementing TMLE" />
   
@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="box-8-update-the-initial-outcome-model-prediction-based-on-targeted-adjustment-of-the-initial-predictions-using-the-ps-model" class="section level1 hasAnchor" number="10">
-<h1><span class="header-section-number">Chapter 10</span> Box 8: Update the initial outcome model prediction based on targeted adjustment of the initial predictions using the PS model<a href="box-8-update-the-initial-outcome-model-prediction-based-on-targeted-adjustment-of-the-initial-predictions-using-the-ps-model.html#box-8-update-the-initial-outcome-model-prediction-based-on-targeted-adjustment-of-the-initial-predictions-using-the-ps-model" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Section 10</span> Box 8: Update the initial outcome model prediction based on targeted adjustment of the initial predictions using the PS model<a href="box-8-update-the-initial-outcome-model-prediction-based-on-targeted-adjustment-of-the-initial-predictions-using-the-ps-model.html#box-8-update-the-initial-outcome-model-prediction-based-on-targeted-adjustment-of-the-initial-predictions-using-the-ps-model" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="box-8-update-the-initial-outcome-model-prediction-based-on-targeted-adjustment-of-the-initial-predictions-using-the-ps-model.html#cb37-1" aria-hidden="true" tabindex="-1"></a>ObsData<span class="sc">$</span>Pred.updateQ1.Y1 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="fu">qlogis</span>(ObsData<span class="sc">$</span>Pred.initialQ0.Y1) <span class="sc">+</span>  </span>
 <span id="cb37-2"><a href="box-8-update-the-initial-outcome-model-prediction-based-on-targeted-adjustment-of-the-initial-predictions-using-the-ps-model.html#cb37-2" aria-hidden="true" tabindex="-1"></a>                                   epsilon[<span class="st">&quot;H.A1L&quot;</span>]<span class="sc">*</span>ObsData<span class="sc">$</span>H.A1L)</span>
 <span id="cb37-3"><a href="box-8-update-the-initial-outcome-model-prediction-based-on-targeted-adjustment-of-the-initial-predictions-using-the-ps-model.html#cb37-3" aria-hidden="true" tabindex="-1"></a>ObsData<span class="sc">$</span>Pred.updateQ1.Y0 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="fu">qlogis</span>(ObsData<span class="sc">$</span>Pred.initialQ0.Y0) <span class="sc">+</span> </span>

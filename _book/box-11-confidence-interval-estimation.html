@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 13 Box 11: Confidence interval estimation | Implementing TMLE in the Presence of a Continuous Outcome</title>
+  <title>Section 13 Box 11: Confidence interval estimation | Implementing TMLE in the Presence of a Continuous Outcome</title>
   <meta name="description" content="Implementing TMLE" />
   <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 13 Box 11: Confidence interval estimation | Implementing TMLE in the Presence of a Continuous Outcome" />
+  <meta property="og:title" content="Section 13 Box 11: Confidence interval estimation | Implementing TMLE in the Presence of a Continuous Outcome" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Implementing TMLE" />
   <meta name="github-repo" content="ehsanx/TMLE-Continuous-Outcome" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 13 Box 11: Confidence interval estimation | Implementing TMLE in the Presence of a Continuous Outcome" />
+  <meta name="twitter:title" content="Section 13 Box 11: Confidence interval estimation | Implementing TMLE in the Presence of a Continuous Outcome" />
   
   <meta name="twitter:description" content="Implementing TMLE" />
   
@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="box-11-confidence-interval-estimation" class="section level1 hasAnchor" number="13">
-<h1><span class="header-section-number">Chapter 13</span> Box 11: Confidence interval estimation<a href="box-11-confidence-interval-estimation.html#box-11-confidence-interval-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Section 13</span> Box 11: Confidence interval estimation<a href="box-11-confidence-interval-estimation.html#box-11-confidence-interval-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="box-11-confidence-interval-estimation.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transform predicted outcomes back to original scale</span></span>
 <span id="cb50-2"><a href="box-11-confidence-interval-estimation.html#cb50-2" aria-hidden="true" tabindex="-1"></a>ObsData<span class="sc">$</span>Pred.updateQ1.Y1.rescaled <span class="ot">&lt;-</span> </span>
 <span id="cb50-3"><a href="box-11-confidence-interval-estimation.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  (max.Y<span class="sc">-</span> min.Y)<span class="sc">*</span>ObsData<span class="sc">$</span>Pred.updateQ1.Y1 <span class="sc">+</span> min.Y</span>
