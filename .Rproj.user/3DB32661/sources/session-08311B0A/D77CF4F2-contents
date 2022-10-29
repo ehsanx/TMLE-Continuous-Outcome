@@ -1,0 +1,226 @@
+--- 
+title: "Implementing TMLE in the Presence of a Continuous Outcome"
+author: "Hanna Frank & Ehsan Karim"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output:
+  bookdown::html_document2:
+    includes:
+      in_header: header.html
+      css: [style.css]
+  bookdown::gitbook:
+    includes:
+      in_header: header.html
+  bookdown::pdf_book:
+    includes:
+      in_header: header.html
+documentclass: book
+link-citations: yes
+github-repo: ehsanx/TMLE-Continuous-Outcome
+description: "Implementing TMLE"
+header-includes: 
+  - \usepackage{tcolorbox}
+  - \newtcolorbox{blackbox}{colback=black,colframe=orange,coltext=white,boxsep=5pt,arc=4pt}
+  - \usepackage{color}
+  - \usepackage{framed}
+  - \setlength{\fboxsep}{.8em}
+---
+
+
+
+<!--chapter:end:index.Rmd-->
+
+
+# A Real data: Box 14: Initial data setup 
+
+Placeholder
+
+
+
+<!--chapter:end:01init.Rmd-->
+
+# Box 1: Transformation of the continuous outcome variable
+```{r, cache=TRUE}
+min.Y <- min(ObsData$Y)
+max.Y <- max(ObsData$Y)
+ObsData$Y.bounded <- (ObsData$Y-min.Y)/(max.Y-min.Y)
+saveRDS(ObsData, file = "rhcAnalytic.RDS") # for comparisons later
+
+# check the range of our transformed outcome data is what we expect
+summary(ObsData$Y.bounded)
+```
+
+<!--chapter:end:02transform.Rmd-->
+
+# Box 2: Fit SuperLearner & make predictions
+```{r SL_out0, cache=TRUE, message=FALSE, warning=FALSE}
+library(SuperLearner)
+library(tmle)
+set.seed(123)
+ObsData.noY <- dplyr::select(ObsData, !c(Y,Y.bounded))
+Y.fit.sl <- SuperLearner(Y=ObsData$Y.bounded, 
+                       X=ObsData.noY, 
+                       cvControl = list(V = 3),
+                       SL.library=c("SL.glm", "tmle.SL.dbarts2", "SL.glmnet"),
+                       method="method.CC_nloglik", 
+                       family="gaussian")
+
+ObsData$Pred.initialQ0 <- Y.fit.sl$SL.predict
+
+# check the range of our newly predicted outcomes
+summary(ObsData$Pred.initialQ0)
+hist(ObsData$Pred.initialQ0)
+```
+
+<!--chapter:end:03SL.Rmd-->
+
+
+# Box 3a & 3b: Get predictions under both treatments, $A = 0$ and $A = 1$
+
+Placeholder
+
+
+
+<!--chapter:end:04pred.Rmd-->
+
+# Box 4: Get initial treatment effect estimate
+
+```{r SL_out03, cache=TRUE, echo = TRUE}
+ObsData$Pred.TE <- ObsData$Pred.initialQ0.Y1 - ObsData$Pred.initialQ0.Y0   
+mean(ObsData$Pred.TE)
+hist(ObsData$Pred.TE)
+```
+
+<!--chapter:end:05init.Rmd-->
+
+# Box 5: Fit propensity score SuperLearner & make predictions
+
+```{r SL_out0ps, cache=TRUE, message=FALSE, warning=FALSE, comment=FALSE, error=FALSE}
+library(SuperLearner)
+library(tmle)
+set.seed(124)
+ObsData.noYA <- dplyr::select(ObsData, !c(Y,Y.bounded,
+                                          A,Pred.initialQ0,
+                                          Pred.initialQ0.Y1,
+                                          Pred.initialQ0.Y0,
+                                          Pred.TE))
+
+PS.fit.SL <- SuperLearner(Y=ObsData$A, 
+                       X=ObsData.noYA, 
+                       cvControl = list(V = 3),
+                       SL.library=c("SL.glm", "SL.gam", "tmle.SL.dbarts.k.5"),
+                       method="method.CC_nloglik",
+                       family="binomial")  
+
+ObsData$PS.SL <- PS.fit.SL$SL.predict
+summary(ObsData$PS.SL)
+hist(ObsData$PS.SL)
+```
+
+<!--chapter:end:06PS.Rmd-->
+
+# Box 6: Estimate clever covariate $H$ 
+
+```{r, warning=FALSE, cache=TRUE}
+# clever covariates
+ObsData$H.A1L <- (ObsData$A) / ObsData$PS.SL 
+summary(ObsData$H.A1L)
+ObsData$H.A0L <- (1-ObsData$A) / (1- ObsData$PS.SL)
+summary(ObsData$H.A0L)
+ObsData$H.AL <- ObsData$H.A1L - ObsData$H.A0L
+summary(ObsData$H.AL)
+```
+
+<!--chapter:end:07clever.Rmd-->
+
+# Box 7: Estimate fluctuation parameter $\epsilon$ 
+
+```{r eestimate, cache=TRUE, warning=FALSE}
+eps_mod <- glm(Y.bounded ~ -1 + H.A1L + H.A0L +  
+                 offset(qlogis(Pred.initialQ0)), 
+               family = "binomial",
+               data = ObsData)
+epsilon <- coef(eps_mod)  
+epsilon["H.A1L"]
+epsilon["H.A0L"] 
+```
+
+<!--chapter:end:08fluctuation.Rmd-->
+
+# Box 8: Update the initial outcome model prediction based on targeted adjustment of the initial predictions using the PS model
+
+```{r teestimate, cache=TRUE, warning=FALSE}
+ObsData$Pred.updateQ1.Y1 <- plogis(qlogis(ObsData$Pred.initialQ0.Y1) +  
+                                   epsilon["H.A1L"]*ObsData$H.A1L)
+ObsData$Pred.updateQ1.Y0 <- plogis(qlogis(ObsData$Pred.initialQ0.Y0) + 
+                                   epsilon["H.A0L"]*ObsData$H.A0L)
+summary(ObsData$Pred.updateQ1.Y1)
+summary(ObsData$Pred.updateQ1.Y0)  
+```
+
+<!--chapter:end:09update.Rmd-->
+
+# Box 9: Find treatment effect estimate 
+
+```{r teestimate2, cache=TRUE, warning=FALSE}
+ATE.TMLE.bounded.vector <- ObsData$Pred.updateQ1.Y1  -  
+                           ObsData$Pred.updateQ1.Y0 
+summary(ATE.TMLE.bounded.vector)
+hist(ATE.TMLE.bounded.vector)
+ATE.TMLE.bounded <- mean(ATE.TMLE.bounded.vector, 
+                         na.rm = TRUE) 
+ATE.TMLE.bounded 
+```
+
+<!--chapter:end:10te.Rmd-->
+
+# Box 10: Transform back the treatment effect estimate in the original outcome scale 
+
+```{r meantmle, cache=TRUE}
+ATE.TMLE <- (max.Y-min.Y)*ATE.TMLE.bounded   
+ATE.TMLE 
+```
+
+<!--chapter:end:11back.Rmd-->
+
+
+# Box 11: Confidence interval estimation
+
+Placeholder
+
+
+
+<!--chapter:end:12ci.Rmd-->
+
+# Box 12: tmle package
+```{r tmle_pkg, cache=TRUE}
+ObsData <- readRDS('rhcAnalytic.RDS')
+set.seed(123)
+
+# run tmle from the tmle package
+W <- dplyr::select(ObsData, !c(Y, Y.bounded, A))
+TMLE_PKG <- tmle::tmle(Y = ObsData$Y.bounded, A = ObsData$A, W = W, family = "gaussian")
+TMLE_PKG
+
+TMLE_PKG_ATE_tr <- TMLE_PKG$estimates$ATE$psi
+TMLE_PKG_ATE_tr
+
+# transform back the ATE estimate using bounds of original Y
+TMLE_PKG_ATE <- (max.Y-min.Y)*TMLE_PKG_ATE_tr
+TMLE_PKG_ATE
+
+TMLE_PKG_CI <- (max.Y-min.Y)*TMLE_PKG$estimates$ATE$CI
+TMLE_PKG_CI
+```
+
+<!--chapter:end:13pkg.Rmd-->
+
+
+# Box 13: Comparison with Keele (2021)
+
+Placeholder
+
+
+
+<!--chapter:end:14compare.Rmd-->
+
