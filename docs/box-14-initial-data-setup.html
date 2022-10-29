@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Implementing TMLE in the Presence of a Continuous Outcome</title>
+  <meta name="description" content="Implementing TMLE" />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Implementing TMLE in the Presence of a Continuous Outcome" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Implementing TMLE" />
+  <meta name="github-repo" content="ehsanx/TMLE-Continuous-Outcome" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Implementing TMLE in the Presence of a Continuous Outcome" />
+  
+  <meta name="twitter:description" content="Implementing TMLE" />
+  
+
+<meta name="author" content="Hanna Frank &amp; Ehsan Karim" />
+
+
+<meta name="date" content="2022-10-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="box-1-transformation-of-the-continuous-outcome-variable.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script type="text/javascript">
+
+// toggle visibility of R source blocks in R Markdown output
+function toggle_R() {
+  var x = document.getElementsByClassName('r');
+  if (x.length == 0) return;
+  function toggle_vis(o) {
+    var d = o.style.display;
+    o.style.display = (d == 'block' || d == '') ? 'none':'block';
+  }
+
+  for (i = 0; i < x.length; i++) {
+    var y = x[i];
+    if (y.tagName.toLowerCase() === 'pre') toggle_vis(y);
+  }
+
+    var elem = document.getElementById("myButton1");
+    if (elem.value === "Hide Global") elem.value = "Show Global";
+    else elem.value = "Hide Global";
+}
+
+document.write('<input onclick="toggle_R();" type="button" value="Hide Global" id="myButton1" style="position: absolute; top: 10%; right: 2%; z-index: 200"></input>')
+
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Implementing TMLE in the Presence of a Continuous Outcome</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="box-14-initial-data-setup.html"><a href="box-14-initial-data-setup.html"><i class="fa fa-check"></i><b>1</b> Box 14: Initial data setup</a></li>
+<li class="chapter" data-level="2" data-path="box-1-transformation-of-the-continuous-outcome-variable.html"><a href="box-1-transformation-of-the-continuous-outcome-variable.html"><i class="fa fa-check"></i><b>2</b> Box 1: Transformation of the continuous outcome variable</a></li>
+<li class="chapter" data-level="3" data-path="box-2-fit-superlearner-make-predictions.html"><a href="box-2-fit-superlearner-make-predictions.html"><i class="fa fa-check"></i><b>3</b> Box 2: Fit SuperLearner &amp; make predictions</a></li>
+<li class="chapter" data-level="4" data-path="box-3a-3b-get-predictions-under-both-treatments-a-0-and-a-1.html"><a href="box-3a-3b-get-predictions-under-both-treatments-a-0-and-a-1.html"><i class="fa fa-check"></i><b>4</b> Box 3a &amp; 3b: Get predictions under both treatments, <span class="math inline">\(A = 0\)</span> and <span class="math inline">\(A = 1\)</span></a></li>
+<li class="chapter" data-level="5" data-path="box-4-get-initial-treatment-effect-estimate.html"><a href="box-4-get-initial-treatment-effect-estimate.html"><i class="fa fa-check"></i><b>5</b> Box 4: Get initial treatment effect estimate</a></li>
+<li class="chapter" data-level="6" data-path="box-5-fit-propensity-score-superlearner-make-predictions.html"><a href="box-5-fit-propensity-score-superlearner-make-predictions.html"><i class="fa fa-check"></i><b>6</b> Box 5: Fit propensity score SuperLearner &amp; make predictions</a></li>
+<li class="chapter" data-level="7" data-path="box-6-estimate-clever-covariate-h.html"><a href="box-6-estimate-clever-covariate-h.html"><i class="fa fa-check"></i><b>7</b> Box 6: Estimate clever covariate <span class="math inline">\(H\)</span></a></li>
+<li class="chapter" data-level="8" data-path="box-7-estimate-fluctuation-parameter-epsilon.html"><a href="box-7-estimate-fluctuation-parameter-epsilon.html"><i class="fa fa-check"></i><b>8</b> Box 7: Estimate fluctuation parameter <span class="math inline">\(\epsilon\)</span></a></li>
+<li class="chapter" data-level="9" data-path="box-8-update-the-initial-outcome-model-prediction-based-on-targeted-adjustment-of-the-initial-predictions-using-the-ps-model.html"><a href="box-8-update-the-initial-outcome-model-prediction-based-on-targeted-adjustment-of-the-initial-predictions-using-the-ps-model.html"><i class="fa fa-check"></i><b>9</b> Box 8: Update the initial outcome model prediction based on targeted adjustment of the initial predictions using the PS model</a></li>
+<li class="chapter" data-level="10" data-path="box-9-find-treatment-effect-estimate.html"><a href="box-9-find-treatment-effect-estimate.html"><i class="fa fa-check"></i><b>10</b> Box 9: Find treatment effect estimate</a></li>
+<li class="chapter" data-level="11" data-path="box-10-transform-back-the-treatment-effect-estimate-in-the-original-outcome-scale.html"><a href="box-10-transform-back-the-treatment-effect-estimate-in-the-original-outcome-scale.html"><i class="fa fa-check"></i><b>11</b> Box 10: Transform back the treatment effect estimate in the original outcome scale</a></li>
+<li class="chapter" data-level="12" data-path="box-11-confidence-interval-estimation.html"><a href="box-11-confidence-interval-estimation.html"><i class="fa fa-check"></i><b>12</b> Box 11: Confidence interval estimation</a></li>
+<li class="chapter" data-level="13" data-path="box-12-tmle-package.html"><a href="box-12-tmle-package.html"><i class="fa fa-check"></i><b>13</b> Box 12: tmle package</a></li>
+<li class="chapter" data-level="14" data-path="box-13-comparison-with-keele-2021.html"><a href="box-13-comparison-with-keele-2021.html"><i class="fa fa-check"></i><b>14</b> Box 13: Comparison with Keele (2021)</a></li>
+<li class="divider"></li>
+<li><a href="https://ehsank.com/" target="blank">Contact</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Implementing TMLE in the Presence of a Continuous Outcome</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Implementing TMLE in the Presence of a Continuous Outcome</h1>
+<p class="author"><em>Hanna Frank &amp; Ehsan Karim</em></p>
+<p class="date"><em>2022-10-29</em></p>
+</div>
+<div id="box-14-initial-data-setup" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Box 14: Initial data setup<a href="box-14-initial-data-setup.html#box-14-initial-data-setup" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="box-14-initial-data-setup.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add column for outcome Y: length of stay </span></span>
+<span id="cb1-2"><a href="box-14-initial-data-setup.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Y = date of discharge - study admission date</span></span>
+<span id="cb1-3"><a href="box-14-initial-data-setup.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Y = date of death - study admission date if date of discharge not available</span></span>
+<span id="cb1-4"><a href="box-14-initial-data-setup.html#cb1-4" aria-hidden="true" tabindex="-1"></a>ObsData <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://hbiostat.org/data/repo/rhc.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-5"><a href="box-14-initial-data-setup.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ObsData &lt;- read.csv(&quot;rhc.csv&quot;, header = TRUE) # replace with your file path</span></span>
+<span id="cb1-6"><a href="box-14-initial-data-setup.html#cb1-6" aria-hidden="true" tabindex="-1"></a>ObsData<span class="sc">$</span>Y <span class="ot">&lt;-</span> ObsData<span class="sc">$</span>dschdte <span class="sc">-</span> ObsData<span class="sc">$</span>sadmdte</span>
+<span id="cb1-7"><a href="box-14-initial-data-setup.html#cb1-7" aria-hidden="true" tabindex="-1"></a>ObsData<span class="sc">$</span>Y[<span class="fu">is.na</span>(ObsData<span class="sc">$</span>Y)] <span class="ot">&lt;-</span> ObsData<span class="sc">$</span>dthdte[<span class="fu">is.na</span>(ObsData<span class="sc">$</span>Y)] <span class="sc">-</span> </span>
+<span id="cb1-8"><a href="box-14-initial-data-setup.html#cb1-8" aria-hidden="true" tabindex="-1"></a>  ObsData<span class="sc">$</span>sadmdte[<span class="fu">is.na</span>(ObsData<span class="sc">$</span>Y)]</span>
+<span id="cb1-9"><a href="box-14-initial-data-setup.html#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="box-14-initial-data-setup.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># remove outcomes we are not examining in this example</span></span>
+<span id="cb1-11"><a href="box-14-initial-data-setup.html#cb1-11" aria-hidden="true" tabindex="-1"></a>ObsData <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ObsData, </span>
+<span id="cb1-12"><a href="box-14-initial-data-setup.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span><span class="fu">c</span>(dthdte,lstctdte,dschdte,death,t3d30,dth30,surv2md1))</span>
+<span id="cb1-13"><a href="box-14-initial-data-setup.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># remove unnecessary and problematic variables </span></span>
+<span id="cb1-14"><a href="box-14-initial-data-setup.html#cb1-14" aria-hidden="true" tabindex="-1"></a>ObsData <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ObsData,</span>
+<span id="cb1-15"><a href="box-14-initial-data-setup.html#cb1-15" aria-hidden="true" tabindex="-1"></a>   <span class="sc">!</span><span class="fu">c</span>(sadmdte,ptid,X,adld3p,urin1,cat2))</span>
+<span id="cb1-16"><a href="box-14-initial-data-setup.html#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="box-14-initial-data-setup.html#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># convert all categorical variables to factors </span></span>
+<span id="cb1-18"><a href="box-14-initial-data-setup.html#cb1-18" aria-hidden="true" tabindex="-1"></a>factors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;cat1&quot;</span>, <span class="st">&quot;ca&quot;</span>, <span class="st">&quot;cardiohx&quot;</span>, <span class="st">&quot;chfhx&quot;</span>, <span class="st">&quot;dementhx&quot;</span>, <span class="st">&quot;psychhx&quot;</span>, </span>
+<span id="cb1-19"><a href="box-14-initial-data-setup.html#cb1-19" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;chrpulhx&quot;</span>, <span class="st">&quot;renalhx&quot;</span>, <span class="st">&quot;liverhx&quot;</span>, <span class="st">&quot;gibledhx&quot;</span>, <span class="st">&quot;malighx&quot;</span>, </span>
+<span id="cb1-20"><a href="box-14-initial-data-setup.html#cb1-20" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;immunhx&quot;</span>, <span class="st">&quot;transhx&quot;</span>, <span class="st">&quot;amihx&quot;</span>, <span class="st">&quot;sex&quot;</span>, <span class="st">&quot;dnr1&quot;</span>, <span class="st">&quot;ninsclas&quot;</span>, </span>
+<span id="cb1-21"><a href="box-14-initial-data-setup.html#cb1-21" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;resp&quot;</span>, <span class="st">&quot;card&quot;</span>, <span class="st">&quot;neuro&quot;</span>, <span class="st">&quot;gastr&quot;</span>, <span class="st">&quot;renal&quot;</span>, <span class="st">&quot;meta&quot;</span>, <span class="st">&quot;hema&quot;</span>, </span>
+<span id="cb1-22"><a href="box-14-initial-data-setup.html#cb1-22" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;seps&quot;</span>, <span class="st">&quot;trauma&quot;</span>, <span class="st">&quot;ortho&quot;</span>, <span class="st">&quot;race&quot;</span>, <span class="st">&quot;income&quot;</span>)</span>
+<span id="cb1-23"><a href="box-14-initial-data-setup.html#cb1-23" aria-hidden="true" tabindex="-1"></a>ObsData[factors] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(ObsData[factors], as.factor)</span>
+<span id="cb1-24"><a href="box-14-initial-data-setup.html#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># convert our treatment A (RHC vs. No RHC) to a binary variable</span></span>
+<span id="cb1-25"><a href="box-14-initial-data-setup.html#cb1-25" aria-hidden="true" tabindex="-1"></a>ObsData<span class="sc">$</span>A <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(ObsData<span class="sc">$</span>swang1 <span class="sc">==</span> <span class="st">&quot;RHC&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb1-26"><a href="box-14-initial-data-setup.html#cb1-26" aria-hidden="true" tabindex="-1"></a>ObsData <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ObsData, <span class="sc">!</span>swang1)</span>
+<span id="cb1-27"><a href="box-14-initial-data-setup.html#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># categorize the variables to match with the original paper</span></span>
+<span id="cb1-28"><a href="box-14-initial-data-setup.html#cb1-28" aria-hidden="true" tabindex="-1"></a>ObsData<span class="sc">$</span>age <span class="ot">&lt;-</span> <span class="fu">cut</span>(ObsData<span class="sc">$</span>age,<span class="at">breaks=</span><span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="cn">Inf</span>),<span class="at">right=</span><span class="cn">FALSE</span>)</span>
+<span id="cb1-29"><a href="box-14-initial-data-setup.html#cb1-29" aria-hidden="true" tabindex="-1"></a>ObsData<span class="sc">$</span>race <span class="ot">&lt;-</span> <span class="fu">factor</span>(ObsData<span class="sc">$</span>race, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;black&quot;</span>,<span class="st">&quot;other&quot;</span>))</span>
+<span id="cb1-30"><a href="box-14-initial-data-setup.html#cb1-30" aria-hidden="true" tabindex="-1"></a>ObsData<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(ObsData<span class="sc">$</span>sex)</span>
+<span id="cb1-31"><a href="box-14-initial-data-setup.html#cb1-31" aria-hidden="true" tabindex="-1"></a>ObsData<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">relevel</span>(ObsData<span class="sc">$</span>sex, <span class="at">ref =</span> <span class="st">&quot;Male&quot;</span>)</span>
+<span id="cb1-32"><a href="box-14-initial-data-setup.html#cb1-32" aria-hidden="true" tabindex="-1"></a>ObsData<span class="sc">$</span>cat1 <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(ObsData<span class="sc">$</span>cat1)</span>
+<span id="cb1-33"><a href="box-14-initial-data-setup.html#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ObsData<span class="sc">$</span>cat1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ARF&quot;</span>,<span class="st">&quot;CHF&quot;</span>,<span class="st">&quot;Other&quot;</span>,<span class="st">&quot;Other&quot;</span>,<span class="st">&quot;Other&quot;</span>,</span>
+<span id="cb1-34"><a href="box-14-initial-data-setup.html#cb1-34" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&quot;Other&quot;</span>,<span class="st">&quot;Other&quot;</span>,<span class="st">&quot;MOSF&quot;</span>,<span class="st">&quot;MOSF&quot;</span>)</span>
+<span id="cb1-35"><a href="box-14-initial-data-setup.html#cb1-35" aria-hidden="true" tabindex="-1"></a>ObsData<span class="sc">$</span>ca <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(ObsData<span class="sc">$</span>ca)</span>
+<span id="cb1-36"><a href="box-14-initial-data-setup.html#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ObsData<span class="sc">$</span>ca) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Metastatic&quot;</span>,<span class="st">&quot;None&quot;</span>,<span class="st">&quot;Localized (Yes)&quot;</span>)</span>
+<span id="cb1-37"><a href="box-14-initial-data-setup.html#cb1-37" aria-hidden="true" tabindex="-1"></a>ObsData<span class="sc">$</span>ca <span class="ot">&lt;-</span> <span class="fu">factor</span>(ObsData<span class="sc">$</span>ca, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;None&quot;</span>, <span class="st">&quot;Localized (Yes)&quot;</span>, <span class="st">&quot;Metastatic&quot;</span>))</span>
+<span id="cb1-38"><a href="box-14-initial-data-setup.html#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># rename variables</span></span>
+<span id="cb1-39"><a href="box-14-initial-data-setup.html#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ObsData) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Disease.category&quot;</span>, <span class="st">&quot;Cancer&quot;</span>, <span class="st">&quot;Cardiovascular&quot;</span>, </span>
+<span id="cb1-40"><a href="box-14-initial-data-setup.html#cb1-40" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;Congestive.HF&quot;</span>, <span class="st">&quot;Dementia&quot;</span>, <span class="st">&quot;Psychiatric&quot;</span>, <span class="st">&quot;Pulmonary&quot;</span>, </span>
+<span id="cb1-41"><a href="box-14-initial-data-setup.html#cb1-41" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;Renal&quot;</span>, <span class="st">&quot;Hepatic&quot;</span>, <span class="st">&quot;GI.Bleed&quot;</span>, <span class="st">&quot;Tumor&quot;</span>, </span>
+<span id="cb1-42"><a href="box-14-initial-data-setup.html#cb1-42" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;Immunosuppression&quot;</span>, <span class="st">&quot;Transfer.hx&quot;</span>, <span class="st">&quot;MI&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;sex&quot;</span>, </span>
+<span id="cb1-43"><a href="box-14-initial-data-setup.html#cb1-43" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;edu&quot;</span>, <span class="st">&quot;DASIndex&quot;</span>, <span class="st">&quot;APACHE.score&quot;</span>, <span class="st">&quot;Glasgow.Coma.Score&quot;</span>, </span>
+<span id="cb1-44"><a href="box-14-initial-data-setup.html#cb1-44" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;blood.pressure&quot;</span>, <span class="st">&quot;WBC&quot;</span>, <span class="st">&quot;Heart.rate&quot;</span>, <span class="st">&quot;Respiratory.rate&quot;</span>, </span>
+<span id="cb1-45"><a href="box-14-initial-data-setup.html#cb1-45" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;Temperature&quot;</span>, <span class="st">&quot;PaO2vs.FIO2&quot;</span>, <span class="st">&quot;Albumin&quot;</span>, <span class="st">&quot;Hematocrit&quot;</span>, </span>
+<span id="cb1-46"><a href="box-14-initial-data-setup.html#cb1-46" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;Bilirubin&quot;</span>, <span class="st">&quot;Creatinine&quot;</span>, <span class="st">&quot;Sodium&quot;</span>, <span class="st">&quot;Potassium&quot;</span>, <span class="st">&quot;PaCo2&quot;</span>, </span>
+<span id="cb1-47"><a href="box-14-initial-data-setup.html#cb1-47" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;PH&quot;</span>, <span class="st">&quot;Weight&quot;</span>, <span class="st">&quot;DNR.status&quot;</span>, <span class="st">&quot;Medical.insurance&quot;</span>, </span>
+<span id="cb1-48"><a href="box-14-initial-data-setup.html#cb1-48" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;Respiratory.Diag&quot;</span>, <span class="st">&quot;Cardiovascular.Diag&quot;</span>, </span>
+<span id="cb1-49"><a href="box-14-initial-data-setup.html#cb1-49" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;Neurological.Diag&quot;</span>, <span class="st">&quot;Gastrointestinal.Diag&quot;</span>, <span class="st">&quot;Renal.Diag&quot;</span>, </span>
+<span id="cb1-50"><a href="box-14-initial-data-setup.html#cb1-50" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;Metabolic.Diag&quot;</span>, <span class="st">&quot;Hematologic.Diag&quot;</span>, <span class="st">&quot;Sepsis.Diag&quot;</span>, </span>
+<span id="cb1-51"><a href="box-14-initial-data-setup.html#cb1-51" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;Trauma.Diag&quot;</span>, <span class="st">&quot;Orthopedic.Diag&quot;</span>, <span class="st">&quot;race&quot;</span>, <span class="st">&quot;income&quot;</span>, </span>
+<span id="cb1-52"><a href="box-14-initial-data-setup.html#cb1-52" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;Y&quot;</span>, <span class="st">&quot;A&quot;</span>)</span>
+<span id="cb1-53"><a href="box-14-initial-data-setup.html#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="box-14-initial-data-setup.html#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(tableone)</span></code></pre></div>
+<pre><code>## Loading required package: tableone</code></pre>
+<pre><code>## Warning: package &#39;tableone&#39; was built under R version 4.2.1</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="box-14-initial-data-setup.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">CreateTableOne</span>(<span class="at">data =</span> ObsData, <span class="at">strata =</span> <span class="st">&quot;A&quot;</span>)</span></code></pre></div>
+<pre><code>##                                  Stratified by A
+##                                   0               1               p      test
+##   n                                 3551            2184                     
+##   Disease.category (%)                                            &lt;0.001     
+##      ARF                            1581 (44.5)      909 (41.6)              
+##      CHF                             247 ( 7.0)      209 ( 9.6)              
+##      Other                           955 (26.9)      208 ( 9.5)              
+##      MOSF                            768 (21.6)      858 (39.3)              
+##   Cancer (%)                                                       0.001     
+##      None                           2652 (74.7)     1727 (79.1)              
+##      Localized (Yes)                 638 (18.0)      334 (15.3)              
+##      Metastatic                      261 ( 7.4)      123 ( 5.6)              
+##   Cardiovascular = 1 (%)             567 (16.0)      446 (20.4)   &lt;0.001     
+##   Congestive.HF = 1 (%)              596 (16.8)      425 (19.5)    0.011     
+##   Dementia = 1 (%)                   413 (11.6)      151 ( 6.9)   &lt;0.001     
+##   Psychiatric = 1 (%)                286 ( 8.1)      100 ( 4.6)   &lt;0.001     
+##   Pulmonary = 1 (%)                  774 (21.8)      315 (14.4)   &lt;0.001     
+##   Renal = 1 (%)                      149 ( 4.2)      106 ( 4.9)    0.268     
+##   Hepatic = 1 (%)                    265 ( 7.5)      136 ( 6.2)    0.084     
+##   GI.Bleed = 1 (%)                   131 ( 3.7)       54 ( 2.5)    0.014     
+##   Tumor = 1 (%)                      872 (24.6)      444 (20.3)   &lt;0.001     
+##   Immunosuppression = 1 (%)          907 (25.5)      636 (29.1)    0.003     
+##   Transfer.hx = 1 (%)                335 ( 9.4)      327 (15.0)   &lt;0.001     
+##   MI = 1 (%)                         105 ( 3.0)       95 ( 4.3)    0.007     
+##   age (%)                                                         &lt;0.001     
+##      [-Inf,50)                       884 (24.9)      540 (24.7)              
+##      [50,60)                         546 (15.4)      371 (17.0)              
+##      [60,70)                         812 (22.9)      577 (26.4)              
+##      [70,80)                         809 (22.8)      529 (24.2)              
+##      [80, Inf)                       500 (14.1)      167 ( 7.6)              
+##   sex = Female (%)                  1637 (46.1)      906 (41.5)    0.001     
+##   edu (mean (SD))                  11.57 (3.13)    11.86 (3.16)    0.001     
+##   DASIndex (mean (SD))             20.37 (5.48)    20.70 (5.03)    0.023     
+##   APACHE.score (mean (SD))         50.93 (18.81)   60.74 (20.27)  &lt;0.001     
+##   Glasgow.Coma.Score (mean (SD))   22.25 (31.37)   18.97 (28.26)  &lt;0.001     
+##   blood.pressure (mean (SD))       84.87 (38.87)   68.20 (34.24)  &lt;0.001     
+##   WBC (mean (SD))                  15.26 (11.41)   16.27 (12.55)   0.002     
+##   Heart.rate (mean (SD))          112.87 (40.94)  118.93 (41.47)  &lt;0.001     
+##   Respiratory.rate (mean (SD))     28.98 (13.95)   26.65 (14.17)  &lt;0.001     
+##   Temperature (mean (SD))          37.63 (1.74)    37.59 (1.83)    0.429     
+##   PaO2vs.FIO2 (mean (SD))         240.63 (116.66) 192.43 (105.54) &lt;0.001     
+##   Albumin (mean (SD))               3.16 (0.67)     2.98 (0.93)   &lt;0.001     
+##   Hematocrit (mean (SD))           32.70 (8.79)    30.51 (7.42)   &lt;0.001     
+##   Bilirubin (mean (SD))             2.00 (4.43)     2.71 (5.33)   &lt;0.001     
+##   Creatinine (mean (SD))            1.92 (2.03)     2.47 (2.05)   &lt;0.001     
+##   Sodium (mean (SD))              137.04 (7.68)   136.33 (7.60)    0.001     
+##   Potassium (mean (SD))             4.08 (1.04)     4.05 (1.01)    0.321     
+##   PaCo2 (mean (SD))                39.95 (14.24)   36.79 (10.97)  &lt;0.001     
+##   PH (mean (SD))                    7.39 (0.11)     7.38 (0.11)   &lt;0.001     
+##   Weight (mean (SD))               65.04 (29.50)   72.36 (27.73)  &lt;0.001     
+##   DNR.status = Yes (%)               499 (14.1)      155 ( 7.1)   &lt;0.001     
+##   Medical.insurance (%)                                           &lt;0.001     
+##      Medicaid                        454 (12.8)      193 ( 8.8)              
+##      Medicare                        947 (26.7)      511 (23.4)              
+##      Medicare &amp; Medicaid             251 ( 7.1)      123 ( 5.6)              
+##      No insurance                    186 ( 5.2)      136 ( 6.2)              
+##      Private                         967 (27.2)      731 (33.5)              
+##      Private &amp; Medicare              746 (21.0)      490 (22.4)              
+##   Respiratory.Diag = Yes (%)        1481 (41.7)      632 (28.9)   &lt;0.001     
+##   Cardiovascular.Diag = Yes (%)     1007 (28.4)      924 (42.3)   &lt;0.001     
+##   Neurological.Diag = Yes (%)        575 (16.2)      118 ( 5.4)   &lt;0.001     
+##   Gastrointestinal.Diag = Yes (%)    522 (14.7)      420 (19.2)   &lt;0.001     
+##   Renal.Diag = Yes (%)               147 ( 4.1)      148 ( 6.8)   &lt;0.001     
+##   Metabolic.Diag = Yes (%)           172 ( 4.8)       93 ( 4.3)    0.337     
+##   Hematologic.Diag = Yes (%)         239 ( 6.7)      115 ( 5.3)    0.029     
+##   Sepsis.Diag = Yes (%)              515 (14.5)      516 (23.6)   &lt;0.001     
+##   Trauma.Diag = Yes (%)               18 ( 0.5)       34 ( 1.6)   &lt;0.001     
+##   Orthopedic.Diag = Yes (%)            3 ( 0.1)        4 ( 0.2)    0.516     
+##   race (%)                                                         0.425     
+##      white                          2753 (77.5)     1707 (78.2)              
+##      black                           585 (16.5)      335 (15.3)              
+##      other                           213 ( 6.0)      142 ( 6.5)              
+##   income (%)                                                      &lt;0.001     
+##      $11-$25k                        713 (20.1)      452 (20.7)              
+##      $25-$50k                        500 (14.1)      393 (18.0)              
+##      &gt; $50k                          257 ( 7.2)      194 ( 8.9)              
+##      Under $11k                     2081 (58.6)     1145 (52.4)              
+##   Y (mean (SD))                    19.53 (23.59)   24.86 (28.90)  &lt;0.001     
+##   A (mean (SD))                     0.00 (0.00)     1.00 (0.00)   &lt;0.001</code></pre>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="box-1-transformation-of-the-continuous-outcome-variable.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/ehsanx/TMLE-Continuous-Outcome/edit/master/01init.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["TMLEcont.pdf", "TMLEcont.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
