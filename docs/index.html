@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 12 Box 10: Transform back the treatment effect estimate in the original outcome scale | Implementing TMLE in the Presence of a Continuous Outcome</title>
+  <title>Implementing TMLE in the Presence of a Continuous Outcome</title>
   <meta name="description" content="Implementing TMLE" />
   <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 12 Box 10: Transform back the treatment effect estimate in the original outcome scale | Implementing TMLE in the Presence of a Continuous Outcome" />
+  <meta property="og:title" content="Implementing TMLE in the Presence of a Continuous Outcome" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Implementing TMLE" />
   <meta name="github-repo" content="ehsanx/TMLE-Continuous-Outcome" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 12 Box 10: Transform back the treatment effect estimate in the original outcome scale | Implementing TMLE in the Presence of a Continuous Outcome" />
+  <meta name="twitter:title" content="Implementing TMLE in the Presence of a Continuous Outcome" />
   
   <meta name="twitter:description" content="Implementing TMLE" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="box-9-find-treatment-effect-estimate.html"/>
-<link rel="next" href="box-11-confidence-interval-estimation.html"/>
+
+<link rel="next" href="a-real-data-box-14-initial-data-setup.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -195,11 +195,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="box-10-transform-back-the-treatment-effect-estimate-in-the-original-outcome-scale" class="section level1 hasAnchor" number="12">
-<h1><span class="header-section-number">Chapter 12</span> Box 10: Transform back the treatment effect estimate in the original outcome scale<a href="box-10-transform-back-the-treatment-effect-estimate-in-the-original-outcome-scale.html#box-10-transform-back-the-treatment-effect-estimate-in-the-original-outcome-scale" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="box-10-transform-back-the-treatment-effect-estimate-in-the-original-outcome-scale.html#cb48-1" aria-hidden="true" tabindex="-1"></a>ATE.TMLE <span class="ot">&lt;-</span> (max.Y<span class="sc">-</span>min.Y)<span class="sc">*</span>ATE.TMLE.bounded   </span>
-<span id="cb48-2"><a href="box-10-transform-back-the-treatment-effect-estimate-in-the-original-outcome-scale.html#cb48-2" aria-hidden="true" tabindex="-1"></a>ATE.TMLE </span></code></pre></div>
-<pre><code>## [1] 2.731947</code></pre>
+<div id="header">
+<h1 class="title">Implementing TMLE in the Presence of a Continuous Outcome</h1>
+<p class="author"><em>Hanna Frank &amp; Ehsan Karim</em></p>
+<p class="date"><em>2022-10-29</em></p>
+</div>
+<div id="citation" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Citation<a href="index.html#citation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Supplementary materials - placed here for ease of running code in order.</p>
+<div class="rmdcomment">
+<p>
+<strong>How to cite</strong>
+</p>
+<p>
+Frank, H and Karim, ME (2022) “Implementing TMLE in the Presence of a
+Continuous Outcome”, URL: <a
+href="https://ehsanx.github.io/TMLE-Continuous-Outcome">ehsanx.github.io/TMLE-Continuous-Outcome</a>
+</p>
+</div>
 
 </div>
             </section>
@@ -207,8 +220,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="box-9-find-treatment-effect-estimate.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="box-11-confidence-interval-estimation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+
+<a href="a-real-data-box-14-initial-data-setup.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -239,7 +252,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ehsanx/TMLE-Continuous-Outcome/edit/master/11back.Rmd",
+"link": "https://github.com/ehsanx/TMLE-Continuous-Outcome/edit/master/index.Rmd",
 "text": "Edit"
 },
 "history": {
