@@ -1,0 +1,858 @@
+{
+    "sources": [
+        {
+            "author": [
+                {
+                    "family": "Keele",
+                    "given": "Luke"
+                },
+                {
+                    "family": "Small",
+                    "given": "Dylan S"
+                }
+            ],
+            "container-title": "The American Statistician",
+            "id": "keele2021comparing",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "page": "1-9",
+            "publisher": "Taylor & Francis",
+            "title": "Comparing covariate prioritization via matching to machine learning methods for causal inference using five empirical applications",
+            "type": "article-journal"
+        },
+        {
+            "author": [
+                {
+                    "family": "Nguyen",
+                    "given": "Tri-Long"
+                },
+                {
+                    "family": "Collins",
+                    "given": "Gary S"
+                },
+                {
+                    "family": "Spence",
+                    "given": "Jessica"
+                },
+                {
+                    "family": "Daurès",
+                    "given": "Jean-Pierre"
+                },
+                {
+                    "family": "Devereaux",
+                    "given": "PJ"
+                },
+                {
+                    "family": "Landais",
+                    "given": "Paul"
+                },
+                {
+                    "family": "Le Manach",
+                    "given": "Yannick"
+                }
+            ],
+            "container-title": "BMC medical research methodology",
+            "id": "nguyen2017double",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "1-8",
+            "publisher": "Springer",
+            "title": "Double-adjustment in propensity score matching analysis: Choosing a threshold for considering residual imbalance",
+            "title-short": "Double-adjustment in propensity score matching analysis",
+            "type": "article-journal",
+            "volume": "17"
+        },
+        {
+            "author": [
+                {
+                    "family": "Alam",
+                    "given": "Shomoita"
+                },
+                {
+                    "family": "Moodie",
+                    "given": "Erica EM"
+                },
+                {
+                    "family": "Stephens",
+                    "given": "David A"
+                }
+            ],
+            "container-title": "Statistics in medicine",
+            "id": "alam2019should",
+            "issue": "9",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "page": "1690-1702",
+            "publisher": "Wiley Online Library",
+            "title": "Should a propensity score model be super? The utility of ensemble procedures for causal adjustment",
+            "type": "article-journal",
+            "volume": "38"
+        },
+        {
+            "author": [
+                {
+                    "family": "Keele",
+                    "given": "Luke"
+                },
+                {
+                    "family": "Small",
+                    "given": "Dylan S"
+                }
+            ],
+            "container-title": "Observational Studies",
+            "id": "keele2018pre",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "page": "97-110",
+            "publisher": "University of Pennsylvania Press",
+            "title": "Pre-analysis plan for a comparison of matching and black box-based covariate adjustment",
+            "type": "article-journal",
+            "volume": "4"
+        },
+        {
+            "author": [
+                {
+                    "family": "Austin",
+                    "given": "Peter C"
+                }
+            ],
+            "container-title": "Multivariate behavioral research",
+            "id": "austin2011tutorial",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "page": "119-151",
+            "publisher": "Taylor & Francis",
+            "title": "A tutorial and case study in propensity score analysis: An application to estimating the effect of in-hospital smoking cessation counseling on mortality",
+            "title-short": "A tutorial and case study in propensity score analysis",
+            "type": "article-journal",
+            "volume": "46"
+        },
+        {
+            "URL": "\\url{https://tinyurl.com/Connors1996}",
+            "author": [
+                {
+                    "family": "Connors",
+                    "given": "Alfred F"
+                },
+                {
+                    "family": "Speroff",
+                    "given": "Theodore"
+                },
+                {
+                    "family": "Dawson",
+                    "given": "Neal V"
+                },
+                {
+                    "family": "Thomas",
+                    "given": "Charles"
+                },
+                {
+                    "family": "Harrell",
+                    "given": "Frank E"
+                },
+                {
+                    "family": "Wagner",
+                    "given": "Douglas"
+                },
+                {
+                    "family": "Desbiens",
+                    "given": "Norman"
+                },
+                {
+                    "family": "Goldman",
+                    "given": "Lee"
+                },
+                {
+                    "family": "Wu",
+                    "given": "Albert W"
+                },
+                {
+                    "family": "Califf",
+                    "given": "Robert M"
+                },
+                {
+                    "literal": "others"
+                }
+            ],
+            "container-title": "Jama",
+            "id": "connors1996effectiveness",
+            "issue": "11",
+            "issued": {
+                "date-parts": [
+                    [
+                        1996
+                    ]
+                ]
+            },
+            "page": "889-897",
+            "publisher": "American Medical Association",
+            "title": "The effectiveness of right heart catheterization in the initial care of critically III patients",
+            "type": "article-journal",
+            "volume": "276"
+        },
+        {
+            "author": [
+                {
+                    "family": "Gruber",
+                    "given": "Susan"
+                },
+                {
+                    "dropping-particle": "van der",
+                    "family": "Laan",
+                    "given": "Mark"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "gruber2012tmle",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "page": "1-35",
+            "title": "Tmle: An r package for targeted maximum likelihood estimation",
+            "title-short": "Tmle",
+            "type": "article-journal",
+            "volume": "51"
+        },
+        {
+            "author": [
+                {
+                    "family": "Gruber",
+                    "given": "Susan"
+                },
+                {
+                    "dropping-particle": "van der",
+                    "family": "Laan",
+                    "given": "Mark J"
+                }
+            ],
+            "container-title": "The International Journal of Biostatistics",
+            "id": "gruber2010targeted",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "publisher": "De Gruyter",
+            "title": "A targeted maximum likelihood estimator of a causal effect on a bounded continuous outcome",
+            "type": "article-journal",
+            "volume": "6"
+        },
+        {
+            "author": [
+                {
+                    "family": "Luque-Fernandez",
+                    "given": "Miguel Angel"
+                },
+                {
+                    "family": "Schomaker",
+                    "given": "Michael"
+                },
+                {
+                    "family": "Rachet",
+                    "given": "Bernard"
+                },
+                {
+                    "family": "Schnitzer",
+                    "given": "Mireille E"
+                }
+            ],
+            "container-title": "Statistics in medicine",
+            "id": "luque2018targeted",
+            "issue": "16",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "page": "2530-2546",
+            "publisher": "Wiley Online Library",
+            "title": "Targeted maximum likelihood estimation for a binary treatment: A tutorial",
+            "title-short": "Targeted maximum likelihood estimation for a binary treatment",
+            "type": "article-journal",
+            "volume": "37"
+        },
+        {
+            "author": [
+                {
+                    "dropping-particle": "van der",
+                    "family": "Laan",
+                    "given": "Mark J"
+                },
+                {
+                    "family": "Petersen",
+                    "given": "Maya L"
+                }
+            ],
+            "id": "van2012targeted",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "publisher": "Springer",
+            "publisher-place": "NY",
+            "title": "Targeted learning",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Gruber",
+                    "given": "Susan"
+                },
+                {
+                    "family": "Van Der Laan",
+                    "given": "Mark J"
+                }
+            ],
+            "id": "gruber2009targeted",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "publisher": "bepress",
+            "title": "Targeted maximum likelihood estimation: A gentle introduction",
+            "title-short": "Targeted maximum likelihood estimation",
+            "type": "article-journal"
+        },
+        {
+            "author": [
+                {
+                    "family": "Naimi",
+                    "given": "Ashley I"
+                },
+                {
+                    "family": "Balzer",
+                    "given": "Laura B"
+                }
+            ],
+            "container-title": "European journal of epidemiology",
+            "id": "naimi2018stacked",
+            "issue": "5",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "page": "459-464",
+            "publisher": "Springer",
+            "title": "Stacked generalization: An introduction to super learning",
+            "title-short": "Stacked generalization",
+            "type": "article-journal",
+            "volume": "33"
+        },
+        {
+            "author": [
+                {
+                    "family": "Rose",
+                    "given": "Sherri"
+                }
+            ],
+            "container-title": "American journal of epidemiology",
+            "id": "rose2013mortality",
+            "issue": "5",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "page": "443-452",
+            "publisher": "Oxford University Press",
+            "title": "Mortality risk score prediction in an elderly population using machine learning",
+            "type": "article-journal",
+            "volume": "177"
+        },
+        {
+            "author": [
+                {
+                    "family": "Pirracchio",
+                    "given": "Romain"
+                },
+                {
+                    "family": "Petersen",
+                    "given": "Maya L"
+                },
+                {
+                    "family": "Van Der Laan",
+                    "given": "Mark"
+                }
+            ],
+            "container-title": "American journal of epidemiology",
+            "id": "pirracchio2015improving",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "page": "108-119",
+            "publisher": "Oxford University Press",
+            "title": "Improving propensity score estimators’ robustness to model misspecification using super learner",
+            "type": "article-journal",
+            "volume": "181"
+        },
+        {
+            "author": [
+                {
+                    "family": "Schuler",
+                    "given": "Megan S"
+                },
+                {
+                    "family": "Rose",
+                    "given": "Sherri"
+                }
+            ],
+            "container-title": "American journal of epidemiology",
+            "id": "schuler2017targeted",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "65-73",
+            "publisher": "Oxford University Press",
+            "title": "Targeted maximum likelihood estimation for causal inference in observational studies",
+            "type": "article-journal",
+            "volume": "185"
+        },
+        {
+            "author": [
+                {
+                    "family": "Naimi",
+                    "given": "Ashley I"
+                },
+                {
+                    "family": "Cole",
+                    "given": "Stephen R"
+                },
+                {
+                    "family": "Kennedy",
+                    "given": "Edward H"
+                }
+            ],
+            "container-title": "International journal of epidemiology",
+            "id": "naimi2017introduction",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "756-762",
+            "publisher": "Oxford University Press",
+            "title": "An introduction to g methods",
+            "type": "article-journal",
+            "volume": "46"
+        },
+        {
+            "author": [
+                {
+                    "family": "Zhong",
+                    "given": "Yongqi"
+                },
+                {
+                    "family": "Kennedy",
+                    "given": "Edward H"
+                },
+                {
+                    "family": "Bodnar",
+                    "given": "Lisa M"
+                },
+                {
+                    "family": "Naimi",
+                    "given": "Ashley I"
+                }
+            ],
+            "container-title": "American Journal of Epidemiology",
+            "id": "zhong2021aipw",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "title": "AIPW: An r package for augmented inverse probability weighted estimation of average causal effects",
+            "title-short": "AIPW",
+            "type": "article-journal"
+        },
+        {
+            "author": [
+                {
+                    "family": "Snowden",
+                    "given": "Jonathan M"
+                },
+                {
+                    "family": "Rose",
+                    "given": "Sherri"
+                },
+                {
+                    "family": "Mortimer",
+                    "given": "Kathleen M"
+                }
+            ],
+            "container-title": "American journal of epidemiology",
+            "id": "snowden2011implementation",
+            "issue": "7",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "page": "731-738",
+            "publisher": "Oxford University Press",
+            "title": "Implementation of g-computation on a simulated data set: Demonstration of a causal inference technique",
+            "title-short": "Implementation of g-computation on a simulated data set",
+            "type": "article-journal",
+            "volume": "173"
+        },
+        {
+            "author": [
+                {
+                    "family": "Austin",
+                    "given": "Peter C"
+                },
+                {
+                    "family": "Stuart",
+                    "given": "Elizabeth A"
+                }
+            ],
+            "container-title": "Statistics in medicine",
+            "id": "austin2015moving",
+            "issue": "28",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "page": "3661-3679",
+            "publisher": "Wiley Online Library",
+            "title": "Moving towards best practice when using inverse probability of treatment weighting (IPTW) using the propensity score to estimate causal treatment effects in observational studies",
+            "type": "article-journal",
+            "volume": "34"
+        },
+        {
+            "author": [
+                {
+                    "family": "Rose",
+                    "given": "Sherri"
+                }
+            ],
+            "container-title": "International journal of epidemiology",
+            "id": "rose2020intersections",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "page": "1763-1770",
+            "publisher": "Oxford University Press",
+            "title": "Intersections of machine learning and epidemiological methods for health services research",
+            "type": "article-journal",
+            "volume": "49"
+        },
+        {
+            "author": [
+                {
+                    "family": "Naimi",
+                    "given": "Ashley I"
+                },
+                {
+                    "family": "Mishler",
+                    "given": "Alan E"
+                },
+                {
+                    "family": "Kennedy",
+                    "given": "Edward H"
+                }
+            ],
+            "container-title": "arXiv preprint arXiv:1711.07137",
+            "id": "naimi2017challenges",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "title": "Challenges in obtaining valid causal effect estimates with machine learning algorithms",
+            "type": "article-journal"
+        },
+        {
+            "author": [
+                {
+                    "family": "Balzer",
+                    "given": "Laura B"
+                },
+                {
+                    "family": "Westling",
+                    "given": "Ted"
+                }
+            ],
+            "container-title": "American Journal of Epidemiology",
+            "id": "balzer2021demystifying",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "title": "Demystifying statistical inference when using machine learning in causal research",
+            "type": "article-journal"
+        },
+        {
+            "URL": "https://cran.r-project.org/web/packages/tmle/tmle.pdf",
+            "author": [
+                {
+                    "family": "Gruber",
+                    "given": "S."
+                },
+                {
+                    "family": "Van Der Laan",
+                    "given": "M."
+                },
+                {
+                    "family": "Kennedy",
+                    "given": "C."
+                }
+            ],
+            "id": "tmlePkgDocs",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "title": "Package ’tmle’",
+            "type": "book"
+        },
+        {
+            "DOI": "10.5281/zenodo.1342293",
+            "URL": "https://doi.org/10.5281/zenodo.1342293",
+            "author": [
+                {
+                    "family": "Coyle",
+                    "given": "Jeremy R"
+                },
+                {
+                    "family": "Hejazi",
+                    "given": "Nima S"
+                },
+                {
+                    "family": "Malenica",
+                    "given": "Ivana"
+                },
+                {
+                    "family": "Sofrygin",
+                    "given": "Oleg"
+                }
+            ],
+            "id": "coyle2021sl3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "note": "R package version 1.4.2",
+            "publisher": "https://github.com/tlverse/sl3",
+            "title": "sl3: Modern pipelines for machine learning and Super Learning",
+            "title-short": "sl3",
+            "type": "book"
+        },
+        {
+            "URL": "https://tlverse.org/tlverse-handbook/",
+            "author": [
+                {
+                    "family": "Coyle",
+                    "given": "Jeremy R"
+                },
+                {
+                    "family": "Hejazi",
+                    "given": "Nima S"
+                },
+                {
+                    "family": "Melencia",
+                    "given": "Ivana"
+                },
+                {
+                    "family": "Phillips",
+                    "given": "Rachael"
+                },
+                {
+                    "family": "Hubbard",
+                    "given": "Alex"
+                }
+            ],
+            "id": "coyle2021tlverse",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "publisher": "https://github.com/tlverse/tlverse-handbook",
+            "title": "Targeted learning in R: Causal data science with the tlverse software ecosystem",
+            "title-short": "Targeted learning in R",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "literal": "Yongqi Zhong"
+                },
+                {
+                    "literal": "Edward H. Kennedy"
+                },
+                {
+                    "literal": "Lisa M. Bodnar"
+                },
+                {
+                    "literal": "Ashley I. Naimi"
+                }
+            ],
+            "container-title": "American Journal of Epidemiology",
+            "id": "Zhong2021AIPW",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "note": "In Press",
+            "title": "AIPW: An r package for augmented inverse probability weighted estimation of average causal effects",
+            "title-short": "AIPW",
+            "type": "article-journal"
+        },
+        {
+            "DOI": "10.18637/jss.v081.i01",
+            "author": [
+                {
+                    "family": "Lendle",
+                    "given": "Samuel D."
+                },
+                {
+                    "family": "Schwab",
+                    "given": "Joshua"
+                },
+                {
+                    "family": "Petersen",
+                    "given": "Maya L."
+                },
+                {
+                    "dropping-particle": "van der",
+                    "family": "Laan",
+                    "given": "Mark J."
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "Lendle2017ltmle",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "1-21",
+            "title": "ltmle: An R package implementing targeted minimum loss-based estimation for longitudinal data",
+            "title-short": "ltmle",
+            "type": "article-journal",
+            "volume": "81"
+        },
+        {
+            "DOI": "10.5281/zenodo.4603358",
+            "URL": "https://doi.org/10.5281/zenodo.4603358",
+            "author": [
+                {
+                    "family": "Coyle",
+                    "given": "Jeremy R"
+                }
+            ],
+            "id": "coyle2021tmle3-rpkg",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "note": "R package version 0.2.0",
+            "publisher": "https://github.com/tlverse/tmle3",
+            "title": "tmle3: The extensible TMLE framework",
+            "title-short": "tmle3",
+            "type": "book"
+        }
+    ],
+    "project_biblios": [
+        "book.bib",
+        "packages.bib"
+    ]
+}

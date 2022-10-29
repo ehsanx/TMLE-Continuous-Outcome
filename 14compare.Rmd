@@ -1,0 +1,74 @@
+# Box 13: Comparison with Keele (2021)
+```{r keele, cache=TRUE}
+library(SuperLearner)
+set.seed(123) 
+ObsData <- readRDS('rhcAnalytic.RDS')
+
+# specify the library of machine learning algorithms our SuperLearner should use
+Q.SL.library = c("SL.glm", "SL.randomForest", "SL.glmnet")
+# fit our SuperLearner
+X <- dplyr::select(ObsData, !c(Y.bounded, Y))
+QbarSL <- SuperLearner(Y=ObsData$Y.bounded, X=X, SL.library=Q.SL.library, family="gaussian", method="method.CC_nloglik")
+
+# make predictions with our fitted model
+QbarAW <- predict(QbarSL, newdata=ObsData)$pred
+# predict the counterfactual outcomes under treatment/no treatment for each observation
+X1 <- X
+X1$A <- 1
+X0 <- X
+X0$A <- 0
+Qbar1W<- predict(QbarSL, newdata=X1)$pred  # predicted outcome under treatment
+Qbar0W<- predict(QbarSL, newdata=X0)$pred  # predicted outcome under no treatment
+  
+# initial estimate of the effect of A on Y:
+PsiHat.SS <- mean(Qbar1W - Qbar0W)
+cat("/n Our initial estimate of the effect of RHC on length of stay is: ", PsiHat.SS)
+
+# specify the library of machine learning algorithms our SuperLearner should use for the propensity score model
+G.SL.library = c("SL.glm", "SL.randomForest", "SL.glmnet")
+# construct the propensity score model using SuperLearner
+gHatSL <- SuperLearner(Y=ObsData$A, X=subset(ObsData, select= -c(A,Y.bounded,Y)), 
+          SL.library=G.SL.library, family="binomial")
+# get the probability of receiving each treatment for each observation
+gHat1W <- gHatSL$SL.predict # predicted probabilities of A=1 given baseline chars
+gHat0W <- 1 - gHat1W
+# get the probability of receiving the treatment they did receive for each observation
+gHatAW <- rep(NA, nrow(ObsData))
+gHatAW[ObsData$A==1] <- gHat1W[ObsData$A==1]
+gHatAW[ObsData$A==0] <- gHat0W[ObsData$A==0]
+
+# clever covariates
+H1W <- ObsData$A / gHat1W
+H0W <- (1-ObsData$A) / gHat0W
+# fluctuation parameter
+eps_mod <- glm(ObsData$Y.bounded ~ -1 + H0W + H1W + offset(qlogis(QbarAW)), family = "binomial")
+epsilon <- coef(eps_mod)
+
+# updated estimates
+Q0W_1 <- plogis(qlogis(Qbar0W) + epsilon[1]*H0W)
+Q1W_1 <- plogis(qlogis(Qbar1W) + epsilon[2]*H1W)
+
+# transformed ATE
+ATE_TMLE1_tr <- mean(Q1W_1 - Q0W_1)
+
+# ATE on original scale
+ATE_TMLE1 <- (max.Y-min.Y)*ATE_TMLE1_tr
+cat("\nUpdated ATE estimate: ", ATE_TMLE1, "\n")
+
+# transform predicted outcomes back to original scale
+Q1W_1_sc <- (max.Y-min.Y)*Q1W_1
+Q0W_1_sc <- (max.Y-min.Y)*Q0W_1
+EY1_TMLE1 <- mean(Q1W_1_sc)
+EY0_TMLE1 <- mean(Q0W_1_sc)
+# ATE efficient influence curve
+D1 <- ObsData$A/gHat1W*(ObsData$Y.bounded - Q1W_1_sc) + Q1W_1_sc - EY1_TMLE1
+D0 <- (1 - ObsData$A)/(1 - gHat1W)*(ObsData$Y.bounded - Q0W_1_sc) + Q0W_1_sc - EY0_TMLE1
+EIC <- D1 - D0
+# ATE variance
+n <- nrow(ObsData)
+varHat.IC <- var(EIC)/n
+
+# ATE 95%CI
+ATE_TMLE1_CI <- c(ATE_TMLE1 - 1.96*sqrt(varHat.IC), ATE_TMLE1 + 1.96*sqrt(varHat.IC))
+cat("\nATE: ", ATE_TMLE1, "  (", ATE_TMLE1_CI[1], ", ", ATE_TMLE1_CI[2], ")", sep = "")
+```

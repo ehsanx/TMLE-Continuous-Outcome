@@ -1,0 +1,20 @@
+# Box 12: tmle package
+```{r tmle_pkg, cache=TRUE}
+ObsData <- readRDS('rhcAnalytic.RDS')
+set.seed(123)
+
+# run tmle from the tmle package
+W <- dplyr::select(ObsData, !c(Y, Y.bounded, A))
+TMLE_PKG <- tmle::tmle(Y = ObsData$Y.bounded, A = ObsData$A, W = W, family = "gaussian")
+TMLE_PKG
+
+TMLE_PKG_ATE_tr <- TMLE_PKG$estimates$ATE$psi
+TMLE_PKG_ATE_tr
+
+# transform back the ATE estimate using bounds of original Y
+TMLE_PKG_ATE <- (max.Y-min.Y)*TMLE_PKG_ATE_tr
+TMLE_PKG_ATE
+
+TMLE_PKG_CI <- (max.Y-min.Y)*TMLE_PKG$estimates$ATE$CI
+TMLE_PKG_CI
+```

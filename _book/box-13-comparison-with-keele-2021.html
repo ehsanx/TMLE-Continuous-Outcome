@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 14 Box 13: Comparison with Keele (2021) | Implementing TMLE in the Presence of a Continuous Outcome</title>
+  <meta name="description" content="Implementing TMLE" />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 14 Box 13: Comparison with Keele (2021) | Implementing TMLE in the Presence of a Continuous Outcome" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Implementing TMLE" />
+  <meta name="github-repo" content="ehsanx/TMLE-Continuous-Outcome" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 14 Box 13: Comparison with Keele (2021) | Implementing TMLE in the Presence of a Continuous Outcome" />
+  
+  <meta name="twitter:description" content="Implementing TMLE" />
+  
+
+<meta name="author" content="Hanna Frank &amp; Ehsan Karim" />
+
+
+<meta name="date" content="2022-10-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="box-12-tmle-package.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script type="text/javascript">
+
+// toggle visibility of R source blocks in R Markdown output
+function toggle_R() {
+  var x = document.getElementsByClassName('r');
+  if (x.length == 0) return;
+  function toggle_vis(o) {
+    var d = o.style.display;
+    o.style.display = (d == 'block' || d == '') ? 'none':'block';
+  }
+
+  for (i = 0; i < x.length; i++) {
+    var y = x[i];
+    if (y.tagName.toLowerCase() === 'pre') toggle_vis(y);
+  }
+
+    var elem = document.getElementById("myButton1");
+    if (elem.value === "Hide Global") elem.value = "Show Global";
+    else elem.value = "Hide Global";
+}
+
+document.write('<input onclick="toggle_R();" type="button" value="Hide Global" id="myButton1" style="position: absolute; top: 10%; right: 2%; z-index: 200"></input>')
+
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Implementing TMLE in the Presence of a Continuous Outcome</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="box-14-initial-data-setup.html"><a href="box-14-initial-data-setup.html"><i class="fa fa-check"></i><b>1</b> Box 14: Initial data setup</a></li>
+<li class="chapter" data-level="2" data-path="box-1-transformation-of-the-continuous-outcome-variable.html"><a href="box-1-transformation-of-the-continuous-outcome-variable.html"><i class="fa fa-check"></i><b>2</b> Box 1: Transformation of the continuous outcome variable</a></li>
+<li class="chapter" data-level="3" data-path="box-2-fit-superlearner-make-predictions.html"><a href="box-2-fit-superlearner-make-predictions.html"><i class="fa fa-check"></i><b>3</b> Box 2: Fit SuperLearner &amp; make predictions</a></li>
+<li class="chapter" data-level="4" data-path="box-3a-3b-get-predictions-under-both-treatments-a-0-and-a-1.html"><a href="box-3a-3b-get-predictions-under-both-treatments-a-0-and-a-1.html"><i class="fa fa-check"></i><b>4</b> Box 3a &amp; 3b: Get predictions under both treatments, <span class="math inline">\(A = 0\)</span> and <span class="math inline">\(A = 1\)</span></a></li>
+<li class="chapter" data-level="5" data-path="box-4-get-initial-treatment-effect-estimate.html"><a href="box-4-get-initial-treatment-effect-estimate.html"><i class="fa fa-check"></i><b>5</b> Box 4: Get initial treatment effect estimate</a></li>
+<li class="chapter" data-level="6" data-path="box-5-fit-propensity-score-superlearner-make-predictions.html"><a href="box-5-fit-propensity-score-superlearner-make-predictions.html"><i class="fa fa-check"></i><b>6</b> Box 5: Fit propensity score SuperLearner &amp; make predictions</a></li>
+<li class="chapter" data-level="7" data-path="box-6-estimate-clever-covariate-h.html"><a href="box-6-estimate-clever-covariate-h.html"><i class="fa fa-check"></i><b>7</b> Box 6: Estimate clever covariate <span class="math inline">\(H\)</span></a></li>
+<li class="chapter" data-level="8" data-path="box-7-estimate-fluctuation-parameter-epsilon.html"><a href="box-7-estimate-fluctuation-parameter-epsilon.html"><i class="fa fa-check"></i><b>8</b> Box 7: Estimate fluctuation parameter <span class="math inline">\(\epsilon\)</span></a></li>
+<li class="chapter" data-level="9" data-path="box-8-update-the-initial-outcome-model-prediction-based-on-targeted-adjustment-of-the-initial-predictions-using-the-ps-model.html"><a href="box-8-update-the-initial-outcome-model-prediction-based-on-targeted-adjustment-of-the-initial-predictions-using-the-ps-model.html"><i class="fa fa-check"></i><b>9</b> Box 8: Update the initial outcome model prediction based on targeted adjustment of the initial predictions using the PS model</a></li>
+<li class="chapter" data-level="10" data-path="box-9-find-treatment-effect-estimate.html"><a href="box-9-find-treatment-effect-estimate.html"><i class="fa fa-check"></i><b>10</b> Box 9: Find treatment effect estimate</a></li>
+<li class="chapter" data-level="11" data-path="box-10-transform-back-the-treatment-effect-estimate-in-the-original-outcome-scale.html"><a href="box-10-transform-back-the-treatment-effect-estimate-in-the-original-outcome-scale.html"><i class="fa fa-check"></i><b>11</b> Box 10: Transform back the treatment effect estimate in the original outcome scale</a></li>
+<li class="chapter" data-level="12" data-path="box-11-confidence-interval-estimation.html"><a href="box-11-confidence-interval-estimation.html"><i class="fa fa-check"></i><b>12</b> Box 11: Confidence interval estimation</a></li>
+<li class="chapter" data-level="13" data-path="box-12-tmle-package.html"><a href="box-12-tmle-package.html"><i class="fa fa-check"></i><b>13</b> Box 12: tmle package</a></li>
+<li class="chapter" data-level="14" data-path="box-13-comparison-with-keele-2021.html"><a href="box-13-comparison-with-keele-2021.html"><i class="fa fa-check"></i><b>14</b> Box 13: Comparison with Keele (2021)</a></li>
+<li class="divider"></li>
+<li><a href="https://ehsank.com/" target="blank">Contact</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Implementing TMLE in the Presence of a Continuous Outcome</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="box-13-comparison-with-keele-2021" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Chapter 14</span> Box 13: Comparison with Keele (2021)<a href="box-13-comparison-with-keele-2021.html#box-13-comparison-with-keele-2021" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="box-13-comparison-with-keele-2021.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SuperLearner)</span>
+<span id="cb54-2"><a href="box-13-comparison-with-keele-2021.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) </span>
+<span id="cb54-3"><a href="box-13-comparison-with-keele-2021.html#cb54-3" aria-hidden="true" tabindex="-1"></a>ObsData <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&#39;rhcAnalytic.RDS&#39;</span>)</span>
+<span id="cb54-4"><a href="box-13-comparison-with-keele-2021.html#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="box-13-comparison-with-keele-2021.html#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="co"># specify the library of machine learning algorithms our SuperLearner should use</span></span>
+<span id="cb54-6"><a href="box-13-comparison-with-keele-2021.html#cb54-6" aria-hidden="true" tabindex="-1"></a>Q.SL.library <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;SL.glm&quot;</span>, <span class="st">&quot;SL.randomForest&quot;</span>, <span class="st">&quot;SL.glmnet&quot;</span>)</span>
+<span id="cb54-7"><a href="box-13-comparison-with-keele-2021.html#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="co"># fit our SuperLearner</span></span>
+<span id="cb54-8"><a href="box-13-comparison-with-keele-2021.html#cb54-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ObsData, <span class="sc">!</span><span class="fu">c</span>(Y.bounded, Y))</span>
+<span id="cb54-9"><a href="box-13-comparison-with-keele-2021.html#cb54-9" aria-hidden="true" tabindex="-1"></a>QbarSL <span class="ot">&lt;-</span> <span class="fu">SuperLearner</span>(<span class="at">Y=</span>ObsData<span class="sc">$</span>Y.bounded, <span class="at">X=</span>X, <span class="at">SL.library=</span>Q.SL.library, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">method=</span><span class="st">&quot;method.CC_nloglik&quot;</span>)</span></code></pre></div>
+<pre><code>## Loading required namespace: randomForest</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="box-13-comparison-with-keele-2021.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make predictions with our fitted model</span></span>
+<span id="cb56-2"><a href="box-13-comparison-with-keele-2021.html#cb56-2" aria-hidden="true" tabindex="-1"></a>QbarAW <span class="ot">&lt;-</span> <span class="fu">predict</span>(QbarSL, <span class="at">newdata=</span>ObsData)<span class="sc">$</span>pred</span></code></pre></div>
+<pre><code>## Warning in predict.SL.glmnet(object = structure(list(object = structure(list(:
+## Removing extra columns in prediction data: Y, Y.bounded</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="box-13-comparison-with-keele-2021.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># predict the counterfactual outcomes under treatment/no treatment for each observation</span></span>
+<span id="cb58-2"><a href="box-13-comparison-with-keele-2021.html#cb58-2" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> X</span>
+<span id="cb58-3"><a href="box-13-comparison-with-keele-2021.html#cb58-3" aria-hidden="true" tabindex="-1"></a>X1<span class="sc">$</span>A <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb58-4"><a href="box-13-comparison-with-keele-2021.html#cb58-4" aria-hidden="true" tabindex="-1"></a>X0 <span class="ot">&lt;-</span> X</span>
+<span id="cb58-5"><a href="box-13-comparison-with-keele-2021.html#cb58-5" aria-hidden="true" tabindex="-1"></a>X0<span class="sc">$</span>A <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb58-6"><a href="box-13-comparison-with-keele-2021.html#cb58-6" aria-hidden="true" tabindex="-1"></a>Qbar1W<span class="ot">&lt;-</span> <span class="fu">predict</span>(QbarSL, <span class="at">newdata=</span>X1)<span class="sc">$</span>pred  <span class="co"># predicted outcome under treatment</span></span>
+<span id="cb58-7"><a href="box-13-comparison-with-keele-2021.html#cb58-7" aria-hidden="true" tabindex="-1"></a>Qbar0W<span class="ot">&lt;-</span> <span class="fu">predict</span>(QbarSL, <span class="at">newdata=</span>X0)<span class="sc">$</span>pred  <span class="co"># predicted outcome under no treatment</span></span>
+<span id="cb58-8"><a href="box-13-comparison-with-keele-2021.html#cb58-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb58-9"><a href="box-13-comparison-with-keele-2021.html#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="co"># initial estimate of the effect of A on Y:</span></span>
+<span id="cb58-10"><a href="box-13-comparison-with-keele-2021.html#cb58-10" aria-hidden="true" tabindex="-1"></a>PsiHat.SS <span class="ot">&lt;-</span> <span class="fu">mean</span>(Qbar1W <span class="sc">-</span> Qbar0W)</span>
+<span id="cb58-11"><a href="box-13-comparison-with-keele-2021.html#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;/n Our initial estimate of the effect of RHC on length of stay is: &quot;</span>, PsiHat.SS)</span></code></pre></div>
+<pre><code>## /n Our initial estimate of the effect of RHC on length of stay is:  0.006103759</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="box-13-comparison-with-keele-2021.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify the library of machine learning algorithms our SuperLearner should use for the propensity score model</span></span>
+<span id="cb60-2"><a href="box-13-comparison-with-keele-2021.html#cb60-2" aria-hidden="true" tabindex="-1"></a>G.SL.library <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;SL.glm&quot;</span>, <span class="st">&quot;SL.randomForest&quot;</span>, <span class="st">&quot;SL.glmnet&quot;</span>)</span>
+<span id="cb60-3"><a href="box-13-comparison-with-keele-2021.html#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co"># construct the propensity score model using SuperLearner</span></span>
+<span id="cb60-4"><a href="box-13-comparison-with-keele-2021.html#cb60-4" aria-hidden="true" tabindex="-1"></a>gHatSL <span class="ot">&lt;-</span> <span class="fu">SuperLearner</span>(<span class="at">Y=</span>ObsData<span class="sc">$</span>A, <span class="at">X=</span><span class="fu">subset</span>(ObsData, <span class="at">select=</span> <span class="sc">-</span><span class="fu">c</span>(A,Y.bounded,Y)), </span>
+<span id="cb60-5"><a href="box-13-comparison-with-keele-2021.html#cb60-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">SL.library=</span>G.SL.library, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb60-6"><a href="box-13-comparison-with-keele-2021.html#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="co"># get the probability of receiving each treatment for each observation</span></span>
+<span id="cb60-7"><a href="box-13-comparison-with-keele-2021.html#cb60-7" aria-hidden="true" tabindex="-1"></a>gHat1W <span class="ot">&lt;-</span> gHatSL<span class="sc">$</span>SL.predict <span class="co"># predicted probabilities of A=1 given baseline chars</span></span>
+<span id="cb60-8"><a href="box-13-comparison-with-keele-2021.html#cb60-8" aria-hidden="true" tabindex="-1"></a>gHat0W <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> gHat1W</span>
+<span id="cb60-9"><a href="box-13-comparison-with-keele-2021.html#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="co"># get the probability of receiving the treatment they did receive for each observation</span></span>
+<span id="cb60-10"><a href="box-13-comparison-with-keele-2021.html#cb60-10" aria-hidden="true" tabindex="-1"></a>gHatAW <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">nrow</span>(ObsData))</span>
+<span id="cb60-11"><a href="box-13-comparison-with-keele-2021.html#cb60-11" aria-hidden="true" tabindex="-1"></a>gHatAW[ObsData<span class="sc">$</span>A<span class="sc">==</span><span class="dv">1</span>] <span class="ot">&lt;-</span> gHat1W[ObsData<span class="sc">$</span>A<span class="sc">==</span><span class="dv">1</span>]</span>
+<span id="cb60-12"><a href="box-13-comparison-with-keele-2021.html#cb60-12" aria-hidden="true" tabindex="-1"></a>gHatAW[ObsData<span class="sc">$</span>A<span class="sc">==</span><span class="dv">0</span>] <span class="ot">&lt;-</span> gHat0W[ObsData<span class="sc">$</span>A<span class="sc">==</span><span class="dv">0</span>]</span>
+<span id="cb60-13"><a href="box-13-comparison-with-keele-2021.html#cb60-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-14"><a href="box-13-comparison-with-keele-2021.html#cb60-14" aria-hidden="true" tabindex="-1"></a><span class="co"># clever covariates</span></span>
+<span id="cb60-15"><a href="box-13-comparison-with-keele-2021.html#cb60-15" aria-hidden="true" tabindex="-1"></a>H1W <span class="ot">&lt;-</span> ObsData<span class="sc">$</span>A <span class="sc">/</span> gHat1W</span>
+<span id="cb60-16"><a href="box-13-comparison-with-keele-2021.html#cb60-16" aria-hidden="true" tabindex="-1"></a>H0W <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>ObsData<span class="sc">$</span>A) <span class="sc">/</span> gHat0W</span>
+<span id="cb60-17"><a href="box-13-comparison-with-keele-2021.html#cb60-17" aria-hidden="true" tabindex="-1"></a><span class="co"># fluctuation parameter</span></span>
+<span id="cb60-18"><a href="box-13-comparison-with-keele-2021.html#cb60-18" aria-hidden="true" tabindex="-1"></a>eps_mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(ObsData<span class="sc">$</span>Y.bounded <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> H0W <span class="sc">+</span> H1W <span class="sc">+</span> <span class="fu">offset</span>(<span class="fu">qlogis</span>(QbarAW)), <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning in eval(family$initialize): non-integer #successes in a binomial glm!</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="box-13-comparison-with-keele-2021.html#cb62-1" aria-hidden="true" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fu">coef</span>(eps_mod)</span>
+<span id="cb62-2"><a href="box-13-comparison-with-keele-2021.html#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-3"><a href="box-13-comparison-with-keele-2021.html#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="co"># updated estimates</span></span>
+<span id="cb62-4"><a href="box-13-comparison-with-keele-2021.html#cb62-4" aria-hidden="true" tabindex="-1"></a>Q0W_1 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="fu">qlogis</span>(Qbar0W) <span class="sc">+</span> epsilon[<span class="dv">1</span>]<span class="sc">*</span>H0W)</span>
+<span id="cb62-5"><a href="box-13-comparison-with-keele-2021.html#cb62-5" aria-hidden="true" tabindex="-1"></a>Q1W_1 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="fu">qlogis</span>(Qbar1W) <span class="sc">+</span> epsilon[<span class="dv">2</span>]<span class="sc">*</span>H1W)</span>
+<span id="cb62-6"><a href="box-13-comparison-with-keele-2021.html#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-7"><a href="box-13-comparison-with-keele-2021.html#cb62-7" aria-hidden="true" tabindex="-1"></a><span class="co"># transformed ATE</span></span>
+<span id="cb62-8"><a href="box-13-comparison-with-keele-2021.html#cb62-8" aria-hidden="true" tabindex="-1"></a>ATE_TMLE1_tr <span class="ot">&lt;-</span> <span class="fu">mean</span>(Q1W_1 <span class="sc">-</span> Q0W_1)</span>
+<span id="cb62-9"><a href="box-13-comparison-with-keele-2021.html#cb62-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-10"><a href="box-13-comparison-with-keele-2021.html#cb62-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ATE on original scale</span></span>
+<span id="cb62-11"><a href="box-13-comparison-with-keele-2021.html#cb62-11" aria-hidden="true" tabindex="-1"></a>ATE_TMLE1 <span class="ot">&lt;-</span> (max.Y<span class="sc">-</span>min.Y)<span class="sc">*</span>ATE_TMLE1_tr</span>
+<span id="cb62-12"><a href="box-13-comparison-with-keele-2021.html#cb62-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Updated ATE estimate: &quot;</span>, ATE_TMLE1, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Updated ATE estimate:  2.442183</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="box-13-comparison-with-keele-2021.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transform predicted outcomes back to original scale</span></span>
+<span id="cb64-2"><a href="box-13-comparison-with-keele-2021.html#cb64-2" aria-hidden="true" tabindex="-1"></a>Q1W_1_sc <span class="ot">&lt;-</span> (max.Y<span class="sc">-</span>min.Y)<span class="sc">*</span>Q1W_1</span>
+<span id="cb64-3"><a href="box-13-comparison-with-keele-2021.html#cb64-3" aria-hidden="true" tabindex="-1"></a>Q0W_1_sc <span class="ot">&lt;-</span> (max.Y<span class="sc">-</span>min.Y)<span class="sc">*</span>Q0W_1</span>
+<span id="cb64-4"><a href="box-13-comparison-with-keele-2021.html#cb64-4" aria-hidden="true" tabindex="-1"></a>EY1_TMLE1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(Q1W_1_sc)</span>
+<span id="cb64-5"><a href="box-13-comparison-with-keele-2021.html#cb64-5" aria-hidden="true" tabindex="-1"></a>EY0_TMLE1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(Q0W_1_sc)</span>
+<span id="cb64-6"><a href="box-13-comparison-with-keele-2021.html#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ATE efficient influence curve</span></span>
+<span id="cb64-7"><a href="box-13-comparison-with-keele-2021.html#cb64-7" aria-hidden="true" tabindex="-1"></a>D1 <span class="ot">&lt;-</span> ObsData<span class="sc">$</span>A<span class="sc">/</span>gHat1W<span class="sc">*</span>(ObsData<span class="sc">$</span>Y.bounded <span class="sc">-</span> Q1W_1_sc) <span class="sc">+</span> Q1W_1_sc <span class="sc">-</span> EY1_TMLE1</span>
+<span id="cb64-8"><a href="box-13-comparison-with-keele-2021.html#cb64-8" aria-hidden="true" tabindex="-1"></a>D0 <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> ObsData<span class="sc">$</span>A)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> gHat1W)<span class="sc">*</span>(ObsData<span class="sc">$</span>Y.bounded <span class="sc">-</span> Q0W_1_sc) <span class="sc">+</span> Q0W_1_sc <span class="sc">-</span> EY0_TMLE1</span>
+<span id="cb64-9"><a href="box-13-comparison-with-keele-2021.html#cb64-9" aria-hidden="true" tabindex="-1"></a>EIC <span class="ot">&lt;-</span> D1 <span class="sc">-</span> D0</span>
+<span id="cb64-10"><a href="box-13-comparison-with-keele-2021.html#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ATE variance</span></span>
+<span id="cb64-11"><a href="box-13-comparison-with-keele-2021.html#cb64-11" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(ObsData)</span>
+<span id="cb64-12"><a href="box-13-comparison-with-keele-2021.html#cb64-12" aria-hidden="true" tabindex="-1"></a>varHat.IC <span class="ot">&lt;-</span> <span class="fu">var</span>(EIC)<span class="sc">/</span>n</span>
+<span id="cb64-13"><a href="box-13-comparison-with-keele-2021.html#cb64-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-14"><a href="box-13-comparison-with-keele-2021.html#cb64-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ATE 95%CI</span></span>
+<span id="cb64-15"><a href="box-13-comparison-with-keele-2021.html#cb64-15" aria-hidden="true" tabindex="-1"></a>ATE_TMLE1_CI <span class="ot">&lt;-</span> <span class="fu">c</span>(ATE_TMLE1 <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(varHat.IC), ATE_TMLE1 <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(varHat.IC))</span>
+<span id="cb64-16"><a href="box-13-comparison-with-keele-2021.html#cb64-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">ATE: &quot;</span>, ATE_TMLE1, <span class="st">&quot;  (&quot;</span>, ATE_TMLE1_CI[<span class="dv">1</span>], <span class="st">&quot;, &quot;</span>, ATE_TMLE1_CI[<span class="dv">2</span>], <span class="st">&quot;)&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## ATE: 2.442183  (1.684947, 3.199419)</code></pre>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="box-12-tmle-package.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/ehsanx/TMLE-Continuous-Outcome/edit/master/14compare.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["TMLEcont.pdf", "TMLEcont.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

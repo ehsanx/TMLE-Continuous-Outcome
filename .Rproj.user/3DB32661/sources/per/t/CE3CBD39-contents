@@ -1,0 +1,31 @@
+# Box 3a & 3b: Get predictions under both treatments, $A = 0$ and $A = 1$
+
+$Q^0(A=1,L)$ predictions:
+
+```{r SL_out01, cache=TRUE}
+ObsData.noYA1 <- ObsData.noY
+ObsData.noYA1$A <- 1
+ObsData$Pred.initialQ0.Y1 <- SuperLearner(Y=ObsData$Y.bounded, 
+                       X=ObsData.noY, 
+                       cvControl = list(V = 3),
+                       SL.library=c("SL.glm", "tmle.SL.dbarts2", "SL.glmnet"),
+                       method="method.CC_nloglik", 
+                       family="gaussian",
+                       newX = ObsData.noYA1)$SL.predict
+summary(ObsData$Pred.initialQ0.Y1)
+```
+
+$Q^0(A=0,L)$ predictions:
+
+```{r SL_out02, cache=TRUE}
+ObsData.noYA0 <- ObsData.noY
+ObsData.noYA0$A <- 0
+ObsData$Pred.initialQ0.Y0 <- SuperLearner(Y=ObsData$Y.bounded, 
+                       X=ObsData.noY, 
+                       cvControl = list(V = 3),
+                       SL.library=c("SL.glm", "tmle.SL.dbarts2", "SL.glmnet"),
+                       method="method.CC_nloglik", 
+                       family="gaussian",
+                       newX = ObsData.noYA0)$SL.predict
+summary(ObsData$Pred.initialQ0.Y0)
+```

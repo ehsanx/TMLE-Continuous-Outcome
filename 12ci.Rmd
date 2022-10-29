@@ -1,0 +1,32 @@
+# Box 11: Confidence interval estimation
+
+```{r tmleinf2, cache=TRUE}
+# transform predicted outcomes back to original scale
+ObsData$Pred.updateQ1.Y1.rescaled <- 
+  (max.Y- min.Y)*ObsData$Pred.updateQ1.Y1 + min.Y
+ObsData$Pred.updateQ1.Y0.rescaled <- 
+  (max.Y- min.Y)*ObsData$Pred.updateQ1.Y0 + min.Y
+
+EY1_TMLE1 <- mean(ObsData$Pred.updateQ1.Y1.rescaled, 
+                  na.rm = TRUE)
+EY0_TMLE1 <- mean(ObsData$Pred.updateQ1.Y0.rescaled, 
+                  na.rm = TRUE)
+
+# ATE efficient influence curve
+D1 <- ObsData$A/ObsData$PS.SL*
+  (ObsData$Y - ObsData$Pred.updateQ1.Y1.rescaled) + 
+  ObsData$Pred.updateQ1.Y1.rescaled - EY1_TMLE1
+D0 <- (1 - ObsData$A)/(1 - ObsData$PS.SL)*
+  (ObsData$Y - ObsData$Pred.updateQ1.Y0.rescaled) + 
+  ObsData$Pred.updateQ1.Y0.rescaled - EY0_TMLE1
+EIC <- D1 - D0
+
+
+# ATE variance
+n <- nrow(ObsData)
+varHat.IC <- var(EIC, na.rm = TRUE)/n
+# ATE 95% CI
+ATE.TMLE.CI <- c(ATE.TMLE - 1.96*sqrt(varHat.IC), 
+                 ATE.TMLE + 1.96*sqrt(varHat.IC))
+ATE.TMLE.CI
+```

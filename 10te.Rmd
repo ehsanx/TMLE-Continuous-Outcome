@@ -1,0 +1,11 @@
+# Box 9: Find treatment effect estimate 
+
+```{r teestimate2, cache=TRUE, warning=FALSE}
+ATE.TMLE.bounded.vector <- ObsData$Pred.updateQ1.Y1  -  
+                           ObsData$Pred.updateQ1.Y0 
+summary(ATE.TMLE.bounded.vector)
+hist(ATE.TMLE.bounded.vector)
+ATE.TMLE.bounded <- mean(ATE.TMLE.bounded.vector, 
+                         na.rm = TRUE) 
+ATE.TMLE.bounded 
+```

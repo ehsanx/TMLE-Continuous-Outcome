@@ -1,0 +1,7 @@
+# Box 4: Get initial treatment effect estimate
+
+```{r SL_out03, cache=TRUE, echo = TRUE}
+ObsData$Pred.TE <- ObsData$Pred.initialQ0.Y1 - ObsData$Pred.initialQ0.Y0   
+mean(ObsData$Pred.TE)
+hist(ObsData$Pred.TE)
+```

@@ -1,0 +1,6 @@
+
+*.RData
+*.rdb
+*.rdx
+index_cache/html/__packages
+*.RDS

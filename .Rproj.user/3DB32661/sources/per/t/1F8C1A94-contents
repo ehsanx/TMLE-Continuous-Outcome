@@ -1,0 +1,6 @@
+# Box 10: Transform back the treatment effect estimate in the original outcome scale 
+
+```{r meantmle, cache=TRUE}
+ATE.TMLE <- (max.Y-min.Y)*ATE.TMLE.bounded   
+ATE.TMLE 
+```

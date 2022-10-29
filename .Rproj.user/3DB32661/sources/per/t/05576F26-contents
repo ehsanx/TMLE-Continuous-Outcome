@@ -1,0 +1,11 @@
+# Box 7: Estimate fluctuation parameter $\epsilon$ 
+
+```{r eestimate, cache=TRUE, warning=FALSE}
+eps_mod <- glm(Y.bounded ~ -1 + H.A1L + H.A0L +  
+                 offset(qlogis(Pred.initialQ0)), 
+               family = "binomial",
+               data = ObsData)
+epsilon <- coef(eps_mod)  
+epsilon["H.A1L"]
+epsilon["H.A0L"] 
+```

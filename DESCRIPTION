@@ -1,0 +1,6 @@
+Package: placeholder
+Type: Book
+Title: Implementing TMLE in the Presence of a Continuous Outcome
+Version: 0.0.1
+Imports: bookdown
+Remotes: ehsanx/TMLE-Continuous-Outcome
